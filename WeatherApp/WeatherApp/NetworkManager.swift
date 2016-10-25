@@ -10,7 +10,10 @@ import UIKit
 
 typealias completion = (_ responseObject : Any) -> ()
 
+
 class NetworkManager: NSObject {
+    
+    static let apiServiceURL = "http://api.openweathermap.org/data/2.5/weather?APPID=50580f60b0913f7ebf75043acece5405&q="
     
     class var sharedManager:NetworkManager {
         
@@ -22,7 +25,8 @@ class NetworkManager: NSObject {
     
     func getWeatherForPlace(city: City, responseObject: @escaping completion){
         
-        let urlString = ""
+        let cityName = city.cityName! + "," + city.cityCountry!
+        let urlString = NetworkManager.apiServiceURL + cityName
         guard let url = URL(string: urlString) else {
             return
         }
