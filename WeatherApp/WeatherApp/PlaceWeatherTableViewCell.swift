@@ -11,6 +11,7 @@ import UIKit
 class PlaceWeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var cityAddressDescription: UILabel!
+    @IBOutlet weak var cityWeatherTemp: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -7,16 +7,26 @@
 //
 
 import Foundation
-
-func getWeatherForPlace(city : City) -> NSDictionary {
     
-    let networkManager = NetworkManager.sharedManager
-    let response = NSDictionary()
+func getWeatherForPlaceAfterParsing(city: City,responseObject : Any) -> City {
     
-    networkManager.getWeatherForPlace(city: city) { (responseObject) in
+    let responseDict = responseObject as! NSDictionary
+    
+    if(responseDict["name"] as? String == city.cityName) {
         
+        let weatherData = responseDict["main"] as! NSDictionary
+        var temperature = weatherData["temp"] as! Double
+        temperature -= 273.15
+        city.cityWeather = String(format:"%.2f",temperature)
+        let weatherType = responseDict["weather"] as! NSArray
+        let weatherDescriptionType = weatherType.firstObject as! NSDictionary
+        city.cityWeatherType = weatherDescriptionType["description"] as? String
         
     }
     
-    return response
+    return city
+    
 }
+
+
+

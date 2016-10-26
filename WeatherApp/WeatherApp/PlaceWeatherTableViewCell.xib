@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -34,23 +34,35 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8R-lU-s4X">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="i20-Pb-xqA"/>
+                            <constraint firstAttribute="width" constant="50" id="iM6-dg-0Bx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="1Oq-Rm-0tE" firstAttribute="trailing" secondItem="TVW-gS-p8X" secondAttribute="trailing" id="2tC-zU-nE1"/>
                     <constraint firstItem="1Oq-Rm-0tE" firstAttribute="leading" secondItem="TVW-gS-p8X" secondAttribute="leading" id="5yn-5M-Bun"/>
+                    <constraint firstItem="J8R-lU-s4X" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6nP-nR-Teo"/>
                     <constraint firstItem="1Oq-Rm-0tE" firstAttribute="height" secondItem="TVW-gS-p8X" secondAttribute="height" id="9re-uC-IKn"/>
                     <constraint firstItem="TVW-gS-p8X" firstAttribute="leading" secondItem="FhK-Qj-ars" secondAttribute="trailing" constant="15" id="FWG-LU-CXP"/>
+                    <constraint firstItem="J8R-lU-s4X" firstAttribute="leading" secondItem="TVW-gS-p8X" secondAttribute="trailing" constant="8" id="Kpq-LV-AJi"/>
+                    <constraint firstAttribute="trailing" secondItem="J8R-lU-s4X" secondAttribute="trailing" constant="8" id="PMJ-29-HaS"/>
                     <constraint firstItem="FhK-Qj-ars" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Rsw-pa-rbS"/>
                     <constraint firstItem="1Oq-Rm-0tE" firstAttribute="top" secondItem="TVW-gS-p8X" secondAttribute="bottom" constant="8" id="Yur-O0-vml"/>
                     <constraint firstItem="TVW-gS-p8X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="a2F-hy-Ffi"/>
                     <constraint firstItem="FhK-Qj-ars" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rt0-hz-Zdj"/>
-                    <constraint firstAttribute="trailing" secondItem="TVW-gS-p8X" secondAttribute="trailing" constant="8" id="ytd-UU-x1R"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="cityAddressDescription" destination="1Oq-Rm-0tE" id="sny-g5-Z9S"/>
                 <outlet property="cityName" destination="TVW-gS-p8X" id="MN5-MO-zvr"/>
+                <outlet property="cityWeatherTemp" destination="J8R-lU-s4X" id="7Gg-b7-ros"/>
             </connections>
             <point key="canvasLocation" x="-108" y="-101"/>
         </tableViewCell>

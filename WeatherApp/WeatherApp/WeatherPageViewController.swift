@@ -22,19 +22,16 @@ class WeatherPageViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        //Weather App
         self.locationManager.requestWhenInUseAuthorization()
-        let currentLocationCity = City.init(cityName: "Dallas", cityState: "Texas", cityCountry: "US")
         
-        let currentLocationCityTwo = City.init(cityName: "Austin", cityState: "Texas", cityCountry: "US")
-        
-        self.navigationController?.navigationBar.isHidden = true
-        self.userSearchedPlaces.add(currentLocationCity)
-        self.userSearchedPlaces.add(currentLocationCityTwo)
-        self.userSearchedPlaces.addObjects(from: self.retrieveSavedPlaces())
-        self.getUserLocationAndPopulate()
+        //Weather App
         self.customizeTableView()
         self.customizeShowResultsButton()
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.getUserLocationAndPopulate()
+        self.userSearchedPlaces.addObjects(from: self.retrieveSavedPlaces())
+        self.callAPIBasedOnAvailability()
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,6 +99,41 @@ class WeatherPageViewController: UIViewController {
          let archiveURL = documentsDirectory.appendingPathComponent("savedPlaces")
         return archiveURL
     }
+    
+    func getWeatherDataForCity(city : City) {
+        
+        let netWorkManager = NetworkManager.sharedManager
+        netWorkManager.getWeatherForPlace(city: city) { (responseObject) in
+            let cityWithWeather : City = getWeatherForPlaceAfterParsing(city: city, responseObject: responseObject)
+            
+            for each in self.userSearchedPlaces {
+                
+                let eachCity = each as! City
+                    if (eachCity.cityName == cityWithWeather.cityName) {
+                        
+                        let index = self.userSearchedPlaces.index(of: eachCity)
+                        self.userSearchedPlaces.removeObject(at: index)
+                        self.userSearchedPlaces.insert(cityWithWeather, at: index)
+                        DispatchQueue.main.async {
+                            self.placeWeatherTableView.reloadData()
+                        }
+                }
+            }
+        }
+    }
+    
+    func callAPIBasedOnAvailability() {
+        
+        for each in self.userSearchedPlaces {
+            let eachCity = each as! City
+            if eachCity.didMakeAPICallForWeather == false {
+                
+                eachCity.didMakeAPICallForWeather = true
+                self.getWeatherDataForCity(city: eachCity)
+                
+            }
+        }
+    }
 }
 
 extension WeatherPageViewController : UITableViewDataSource,UITableViewDelegate {
@@ -123,6 +155,12 @@ extension WeatherPageViewController : UITableViewDataSource,UITableViewDelegate 
         if let name = city.cityName, let state = city.cityState, let country = city.cityCountry {
             cell.cityName.text = name
             cell.cityAddressDescription.text = state + " , " + country
+        }
+        
+        if let temp = city.cityWeather {
+            cell.cityWeatherTemp.text = temp
+        } else {
+            cell.cityWeatherTemp.text = "--"
         }
         return cell
     }
@@ -157,6 +195,7 @@ extension WeatherPageViewController : CLLocationManagerDelegate {
                         city.cityCountry = country
                         self.currentLocationIsFound = true
                         self.userSearchedPlaces.insert(city, at: 0)
+                        self.callAPIBasedOnAvailability()
                         self.customizeTableView()
                         self.placeWeatherTableView.reloadData()
                     }
@@ -172,6 +211,7 @@ extension WeatherPageViewController : PlaceSelectedProtocol {
         
         self.saveSearchedPlaces(city: place)
         self.userSearchedPlaces.add(place)
+        self.callAPIBasedOnAvailability()
         self.customizeTableView()
         self.placeWeatherTableView.reloadData()
     }

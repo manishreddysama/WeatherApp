@@ -27,7 +27,9 @@ class NetworkManager: NSObject {
         
         let cityName = city.cityName! + "," + city.cityCountry!
         let urlString = NetworkManager.apiServiceURL + cityName
-        guard let url = URL(string: urlString) else {
+        print(urlString)
+        let urlStr = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        guard let url = URL(string: urlStr!) else {
             return
         }
         let urlRequest = URLRequest(url: url)
@@ -50,6 +52,7 @@ class NetworkManager: NSObject {
                     print("error trying to convert data to JSON")
                     return
                 }
+                print(responseJSON)
                 responseObject(responseJSON)
                 
             } catch  {

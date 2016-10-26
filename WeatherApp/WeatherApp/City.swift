@@ -15,6 +15,7 @@ class City: NSObject, NSCoding {
     var cityCountry : String?
     var cityWeather : String?
     var cityWeatherType : String?
+    var didMakeAPICallForWeather : Bool = false
 
     
     // Memberwise initializer
