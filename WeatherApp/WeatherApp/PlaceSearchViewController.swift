@@ -20,7 +20,7 @@ class PlaceSearchViewController: UIViewController {
     @IBOutlet weak var searchBarView: UIView!
     @IBOutlet weak var placeSearchResultsTableView: UITableView!
     var searchResults = [MKMapItem]()
-    let mapView = MKMapView()
+    var mapView = MKMapView()
         var delegate : PlaceSelectedProtocol?
 
     override func viewDidLoad() {

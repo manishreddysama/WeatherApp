@@ -26,7 +26,7 @@ class WeatherPageViewController: UIViewController {
         
         //Weather App
         self.customizeTableView()
-        self.customizeShowResultsButton()
+        self.showSearchVCButton.backgroundColor = UIColor.clear
         
         self.navigationController?.navigationBar.isHidden = true
         self.getUserLocationAndPopulate()
@@ -50,15 +50,8 @@ class WeatherPageViewController: UIViewController {
         self.placeWeatherTableView.register(UINib.init(nibName: "PlaceWeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "placeWeatherCell")
         self.placeWeatherTableView.separatorInset = UIEdgeInsetsMake(0, 60, 0, 0)
         self.placeWeatherTableView.separatorColor = UIColor.black
-        let tableViewHeight = self.userSearchedPlaces.count * 80
-        self.tableViewHeightConstraint.constant = CGFloat(Double(tableViewHeight))
+        self.placeWeatherTableView.tableFooterView = UIView()
 
-    }
-    
-    func customizeShowResultsButton() {
-        self.showSearchVCButton.layer.cornerRadius = self.showSearchVCButton.frame.size.width / 2
-        self.showSearchVCButton.layer.borderColor = UIColor.white.cgColor
-        self.showSearchVCButton.layer.borderWidth = 1.0
     }
     
     func getUserLocationAndPopulate() {
@@ -169,6 +162,23 @@ extension WeatherPageViewController : UITableViewDataSource,UITableViewDelegate 
         return 80
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let weatherDescriptionPageVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WeahterDescriptionPageViewController") as! WeahterDescriptionPageViewController
+        var placesArray = [City]()
+        for each in self.userSearchedPlaces {
+            let eachCity = each as! City
+            placesArray.append(eachCity)
+        }
+            weatherDescriptionPageVC.placesArray = placesArray
+            weatherDescriptionPageVC.selectedIndex = indexPath.row
+        self.navigationController?.present(weatherDescriptionPageVC, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        return 0.01
+    }
 }
 
 extension WeatherPageViewController : CLLocationManagerDelegate {

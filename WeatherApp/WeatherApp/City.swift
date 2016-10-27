@@ -15,6 +15,11 @@ class City: NSObject, NSCoding {
     var cityCountry : String?
     var cityWeather : String?
     var cityWeatherType : String?
+    var cityPressure : String?
+    var cityHumidity : String?
+    var cityWindSpeed : String?
+    var citySunrise : String?
+    var citySunset : String?
     var didMakeAPICallForWeather : Bool = false
 
     
