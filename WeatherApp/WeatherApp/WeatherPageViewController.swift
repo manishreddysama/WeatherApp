@@ -96,12 +96,13 @@ class WeatherPageViewController: UIViewController {
     func getWeatherDataForCity(city : City) {
         
         let netWorkManager = NetworkManager.sharedManager
-        netWorkManager.getWeatherForPlace(city: city) { (responseObject) in
-            let cityWithWeather : City = getWeatherForPlaceAfterParsing(city: city, responseObject: responseObject)
-            
-            for each in self.userSearchedPlaces {
+        
+        netWorkManager.getWeatherForPlace(city: city) { (success, responseObject) in
+            if success == true {
+                let cityWithWeather : City = getWeatherForPlaceAfterParsing(city: city, responseObject: responseObject)
                 
-                let eachCity = each as! City
+                for each in self.userSearchedPlaces {
+                    let eachCity = each as! City
                     if (eachCity.cityName == cityWithWeather.cityName) {
                         
                         let index = self.userSearchedPlaces.index(of: eachCity)
@@ -110,7 +111,15 @@ class WeatherPageViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.placeWeatherTableView.reloadData()
                         }
+                    }
                 }
+            } else {
+                
+                let errorDict = responseObject as! NSDictionary
+                
+                let alert = UIAlertController.init(title: errorDict.value(forKey: "title") as! String?, message: errorDict.value(forKey: "message") as! String?, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

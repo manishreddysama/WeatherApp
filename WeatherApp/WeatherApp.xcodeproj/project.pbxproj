@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B27E1C61DC2BC940028CB0B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B27E1C51DC2BC940028CB0B /* Reachability.swift */; };
 		9B2D305A1DB91FE000F93ED6 /* PlaceWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D30581DB91FE000F93ED6 /* PlaceWeatherTableViewCell.swift */; };
 		9B2D305B1DB91FE000F93ED6 /* PlaceWeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B2D30591DB91FE000F93ED6 /* PlaceWeatherTableViewCell.xib */; };
 		9B2D305D1DB92C6000F93ED6 /* PlaceSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D305C1DB92C6000F93ED6 /* PlaceSearchTableViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B27E1C51DC2BC940028CB0B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		9B2D30581DB91FE000F93ED6 /* PlaceWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceWeatherTableViewCell.swift; sourceTree = "<group>"; };
 		9B2D30591DB91FE000F93ED6 /* PlaceWeatherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceWeatherTableViewCell.xib; sourceTree = "<group>"; };
 		9B2D305C1DB92C6000F93ED6 /* PlaceSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				9B2D306D1DBBC06600F93ED6 /* City.swift */,
 				9BCD34921DC1136A00593174 /* WeatherDescriptionViewController.swift */,
 				9BCD34941DC1138F00593174 /* WeahterDescriptionPageViewController.swift */,
+				9B27E1C51DC2BC940028CB0B /* Reachability.swift */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				9B337F771DB8802D00DF8479 /* WeatherPageViewController.swift in Sources */,
 				9BCD34931DC1136A00593174 /* WeatherDescriptionViewController.swift in Sources */,
 				9B337F751DB8802D00DF8479 /* AppDelegate.swift in Sources */,
+				9B27E1C61DC2BC940028CB0B /* Reachability.swift in Sources */,
 				9B2D30601DB94EC000F93ED6 /* PlaceSearchViewController.swift in Sources */,
 				9B2D306E1DBBC06600F93ED6 /* City.swift in Sources */,
 				9B2D30641DBAB0D800F93ED6 /* Parser.swift in Sources */,

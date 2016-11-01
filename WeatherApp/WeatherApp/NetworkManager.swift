@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias completion = (_ responseObject : Any) -> ()
+typealias completion = (_ success: Bool,_ responseObject : Any) -> ()
 
 
 class NetworkManager: NSObject {
@@ -25,18 +25,20 @@ class NetworkManager: NSObject {
     
     func getWeatherForPlace(city: City, responseObject: @escaping completion){
         
-        let cityName = city.cityName! + "," + city.cityCountry!
-        let urlString = NetworkManager.apiServiceURL + cityName
-        print(urlString)
-        let urlStr = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        guard let url = URL(string: urlStr!) else {
-            return
-        }
-        let urlRequest = URLRequest(url: url)
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
+        if Reachability.isConnectedToNetwork() == true {
+    
+            let cityName = city.cityName! + "," + city.cityCountry!
+            let urlString = NetworkManager.apiServiceURL + cityName
+            print(urlString)
+            let urlStr = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            guard let url = URL(string: urlStr!) else {
+                return
+            }
+            let urlRequest = URLRequest(url: url)
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
         
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
+            let task = session.dataTask(with: urlRequest) { (data, response, error) in
             guard error == nil else {
                 print("Error")
                 return
@@ -53,18 +55,22 @@ class NetworkManager: NSObject {
                     return
                 }
                 print(responseJSON)
-                responseObject(responseJSON)
+                responseObject(true,responseJSON)
                 
-            } catch  {
-                print("error trying to convert data to JSON")
-                return
+                } catch  {
+                    print("error trying to convert data to JSON")
+                    return
+                }
             }
+        
+            task.resume()
+            
         }
-        
-        task.resume()
-        
+        else {
+            let error = ["error":"Yes","title":"No Internet Connection","message":"Make sure your device is connected to the internet"]
+            responseObject(false,error)
+        }
+    
     }
-    
-    
 
 }
